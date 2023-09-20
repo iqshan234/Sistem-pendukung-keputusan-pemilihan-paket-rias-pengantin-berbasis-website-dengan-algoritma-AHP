@@ -1,0 +1,13 @@
+create view view_nilai_kriteria as 
+ select a.id_kriteria,
+ case when b.jns_kriteria = 'Benefit' then
+ max(nilai_analisa_alternatif)
+ when b.jns_kriteria = 'Cost' then  
+ min(nilai_analisa_alternatif)
+ else null
+ end as nilai_kriteria
+ from
+ analisa_alternatif a
+ join kriteria b
+ on a.id_kriteria = b.id_kriteria 
+ group by a.id_kriteria
